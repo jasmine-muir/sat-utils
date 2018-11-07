@@ -131,6 +131,7 @@ def main():
 	    if not os.path.exists(SWIRBandFileResample):	   
 	        cmd = "gdalwarp -tr 10 10 -r cubic %s %s" %(SWIRBandFile,SWIRBandFileResample)
 	        os.system(cmd)
+	    ndviFile = "_".join(redEdgeBandFile.split('/')[-1].split('.')[0].split('_')[:-1]) + '_ndvi.tif'
 	    msaviFile = "_".join(redEdgeBandFile.split('/')[-1].split('.')[0].split('_')[:-1]) + '_msavi.tif'
 	    ndwiFile = "_".join(redEdgeBandFile.split('/')[-1].split('.')[0].split('_')[:-1]) + '_ndwi.tif'
 	    rendviFile = "_".join(redEdgeBandFile.split('/')[-1].split('.')[0].split('_')[:-1]) + '_rendvi.tif'
@@ -138,6 +139,9 @@ def main():
 	    if not os.path.exists(msaviFile):
 	        print("Creating %s" %(msaviFile))
 	        doMSAVI(redBandFile,nirBandFile,msaviFile)
+	    if not os.path.exists(ndviFile):
+	        print("Creating %s" %(ndviFile))
+	        doRatioDiff(nirBandFile,redBandFile,ndviFile)		
 	    if not os.path.exists(ndwiFile):
 	        print("Creating %s" %(ndwiFile))
 	        doRatioDiff(nirBandFile,SWIRBandFileResample,ndwiFile)
